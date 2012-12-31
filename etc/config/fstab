@@ -22,3 +22,11 @@ config mount
 config swap
   option device /dev/sda2
   option enabled  1
+
+config 'mount'
+  option 'target' '/tmp'
+  option 'device' 'tmpfs'
+  option 'fstype' 'tmpfs'
+  option 'options' 'remount,rw,nosuid,nodev,noatime,size=256M'
+  option 'enabled_fsck' '0'
+  option 'enabled' '1'
