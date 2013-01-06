@@ -1,4 +1,6 @@
--ppp
--ppp-mod-ppoe
 kmod-usb-storage
+kmod-fs-ext4
 block-mount
+swap-utils
+-ppp
+-ppp-mod-pppoe
