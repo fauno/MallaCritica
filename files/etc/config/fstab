@@ -13,7 +13,7 @@ config global autoswap
   
 config mount
   option target /overlay
-  option label  root
+  option label  raiz
   option device /dev/sda1
   option fstype ext4
   option options  rw,async,noatime
@@ -21,7 +21,7 @@ config mount
   option enabled_fsck 1
 
 config swap
-  option label  swap
+  option label  intercambio
   option device /dev/sda2
   option enabled  1
 
