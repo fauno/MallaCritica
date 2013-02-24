@@ -5,3 +5,5 @@ swap-utils
 babeld
 -ppp
 -ppp-mod-pppoe
+-dnsmasq
+dnsmasq-dhcpv6
