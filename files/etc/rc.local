@@ -5,12 +5,14 @@
 swapon -fixpgz /dev/sda2
 mount -t tmpfs -o remount,rw,nosuid,nodev,noatime,size=256M tmpfs /tmp
 
-# Crear una ipv6 aleatoria dentro del rango 2001:db8::  
-# TODO compilar generate-ipv6-address!                 
-if ! uci get network.lan.ip6addr >/dev/null 2>/dev/null         
-then                                                            
-  uci set network.lan.ip6addr=`generate-ipv6-address 2001:db8::`
-  uci commit
-fi    
-      
+# Crear una ipv6 aleatoria dentro del rango 2001:db8::
+for net in lan wan
+do
+  if ! uci get network.${net}.ip6addr >/dev/null 2>/dev/null
+  then
+    uci set network.${net}.ip6addr=`generate-ipv6-address 2001:db8::`
+    uci commit
+  fi
+done
+
 exit 0
