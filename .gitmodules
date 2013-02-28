@@ -1,0 +1,3 @@
+[submodule "package/luci-theme-bootstrap"]
+	path = package/luci-theme-bootstrap
+	url = git://github.com/nutbolt/luci-theme-bootstrap.git
