@@ -16,7 +16,7 @@ config mount
   option label  raiz
   option device /dev/sda1
   option fstype ext4
-  option options  rw,async,noatime
+  option options  rw,sync,noatime
   option enabled  1
   option enabled_fsck 1
 
@@ -24,6 +24,15 @@ config swap
   option label  intercambio
   option device /dev/sda2
   option enabled  1
+  
+config mount
+  option target /www
+  option device /dev/sda3
+  option label datos
+  option fstype ext4
+  option options rw,async,noatime
+  option enabled 1
+  option enabled_fsck 1
 
 # http://wiki.openwrt.org/doc/uci/fstab#supersizing.tmp.directory
 config mount
