@@ -1,0 +1,20 @@
+--- a/Makefile	2013-03-23 02:56:20.478365485 -0300
++++ b/Makefile	2013-03-23 02:57:11.599156243 -0300
+@@ -19,6 +19,8 @@
+ 
+ BINDIR?=$(PREFIX)/bin
+ 
++STRIP=strip
++
+ #FEATURES+=-DWANT_V6
+ 
+ #FEATURES+=-DWANT_ACCESSLIST_BLACK
+@@ -66,7 +68,7 @@
+ 
+ $(BINARY): $(OBJECTS) $(HEADERS)
+ 	$(CC) -o $@ $(OBJECTS) $(LDFLAGS)
+-	strip $@
++	$(STRIP) $@
+ $(BINARY).debug: $(OBJECTS_debug) $(HEADERS)
+ 	$(CC) -o $@ $(OBJECTS_debug) $(LDFLAGS)
+ proxy: $(OBJECTS_proxy) $(HEADERS)
