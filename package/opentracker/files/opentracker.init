@@ -1,0 +1,15 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2013 HackLab Barracas
+
+START=99
+
+SERVICE_USE_PID=0
+
+start() {
+	service_start /usr/bin/opentracker -f /etc/opentracker/config
+}
+
+stop() {
+	service_stop /usr/bin/opentracker
+}
+
