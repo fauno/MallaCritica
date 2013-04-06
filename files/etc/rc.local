@@ -10,7 +10,7 @@ for net in lan wan
 do
   if ! uci get network.${net}.ip6addr >/dev/null 2>/dev/null
   then
-    uci set network.${net}.ip6addr=`generate-ipv6-address 2001:db8::`
+    uci set network.${net}.ip6addr=`generate-ipv6-address 2001:db8::`/64
     uci commit
   fi
 done

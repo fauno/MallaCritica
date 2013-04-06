@@ -7,3 +7,4 @@ babeld
 -ppp-mod-pppoe
 -dnsmasq
 dnsmasq-dhcpv6
+generate-ipv6-address
