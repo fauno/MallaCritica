@@ -5,14 +5,33 @@
 swapon -fixpgz /dev/sda2
 mount -t tmpfs -o remount,rw,nosuid,nodev,noatime,size=256M tmpfs /tmp
 
+uci set wireless.@wifi-device[0].disabled=0
+
 # Crear una ipv6 aleatoria dentro del rango 2001:db8::
 for net in lan wan
 do
   if ! uci get network.${net}.ip6addr >/dev/null 2>/dev/null
   then
     uci set network.${net}.ip6addr=`generate-ipv6-address 2001:db8::`
-    uci commit
   fi
 done
+
+# Crear la red adhoc
+if [ "`uci get wireless.wifi-iface[0].mode 2>/dev/null`" != "adhoc" ]; then
+  echo \
+"device radio0
+mode adhoc
+network wan
+ssid MallaCritica
+encryption none" | while read option value
+  do
+    uci set wireless.@wifi-iface[0].${option}="${value}"
+  done
+
+  uci commit wireless
+  wifi
+fi
+
+uci commit
 
 exit 0
