@@ -1,0 +1,96 @@
+Firmware para la MallaCritica
+=============================
+
+Ir a las [descargas][] de [OpenWrt][] y descargar el [ImageBuilder][] para la
+versión y hardware que vamos a usar, en este momento [Attidude Adjustment][1].
+
+    wget http://....OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2
+    tar xf OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2
+
+Esta imagen es genérica para todos los ar71xx, es decir los TPLink que usamos
+normalmente.
+
+
+Preparar los archivos
+---------------------
+
+Crear un directorio con todos los archivos de configuración que queramos
+incluir en la imagen.
+
+Por ahora sólo necesitamos la configuración de fstab para automontar el root
+del sistema y tener más espacio para instalar programas y servir archivos.
+
+    git clone git://git.hackcoop.com.ar/MallaCritica.git
+
+Esto clona el overlay dentro del directorio *MallaCritica/files/*.
+
+
+Preparar la imagen
+------------------
+
+Para crear una imagen hay que saber el nombre del perfil para el modelo del
+router. Con
+
+    make info
+
+se pueden ver todos los modelos soportados con los paquetes que incluyen por
+defecto. Para el TPLink WR703N el nombre de perfil es *TLWR703N*.
+
+> Atención: si se escribe mal el nombre del perfil o de uno que no exista
+> ImageBuilder corre igual pero no devuelve los firmware.bin.
+
+Para crear la imagen por defecto, basta con:
+
+    make image PROFILE=TLWR703N
+
+Pero para agregar los paquetes de MallaCritica y los archivos de configuración
+hay que agregar dos variables más:
+
+    make image PROFILE=TLWR703N FILES=MallaCritica/files/ PACKAGES="..."
+
+La lista de paquetes a usar (o no usar, si se prefijan con "-", ej. "-unrar")
+se encuentra dentro de files/packages.list. Para pasársela al `make` hay que
+cargarla en una variable:
+
+    PACKAGES="$(cat MallaCritica/packages.list | tr "\n" " ")"
+    make image PROFILE=TLWR703N FILES=files/ PACKAGES="$PACKAGES"
+
+Luego de correr este último comando, el firmware para MallaCritica debería
+encontrarse en el directorio *bin/ar71xx/*.
+
+
+Instalación
+-----------
+
+Flashear el router normalmente o siguiendo las instrucciones de
+[sys.upgrade][].
+
+Preparar la tarjeta de memoria para el sistema externo. Se crean dos
+particiones, la primera de tipo ext4 y la segunda swap. La regla es usar
+2 o 4 veces la cantidad de RAM para la swap.
+
+Luego, se descomprime el archivo rootfs.tar.gz en la primera partición. Este
+archivo contiene el sistema base.
+
+    mount /dev/sdb1 /mnt
+    cd /mnt
+    tar xf /path/a/imagebuilder/bin/ar71xx/openwrt-ar71xx-generic-rootfs.tar.gz
+    cd ..
+    umount /mnt
+
+Una vez que está hecho esto, se conecta la tarjeta de memoria en el router
+apagado y se lo enciende. Si todo va bien, al loguearse por telnet, el comando
+`df -h` debería mostrar el tamaño de la tarjeta para *rootfs*.
+
+
+Problemas conocidos
+-------------------
+
+* La partición swap no es montada automáticamente: correr
+  `swapon -f /dev/sda2`. Con esto se ajusta el _page size_.
+
+[ImageBuilder]: http://wiki.openwrt.org/doc/howto/obtain.firmware.generate
+[descargas]: http://downloads.openwrt.org
+[OpenWrt]: https://openwrt.org
+[sys.upgrade]: http://wiki.openwrt.org/doc/howto/sys.upgrade
+[1]: http://downloads.openwrt.org/attitude_adjustment/12.09-beta2/ar71xx/generic/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2
