@@ -118,6 +118,35 @@ Si lo que necesitamos es compilar un módulo del kernel, al parecer no es
 posible hacerlo desde el SDK sino que hay que compilar OpenWrt desde cero (o al
 menos esto era cierto la última vez que probé -- fauno).
 
+
+Crear un repositorio
+--------------------
+
+Para generar la base de datos de paquetes incluyendo los propios, hay que
+copiar los paquetes al directorio _packages/_ y correr el siguiente comando del
+ImageBuilder:
+
+    $ cp sdk/bin/ar71xx/packages/* ib/packages/
+    $ cd ib
+    $ make package_index
+
+El directorio _packages/_ del ImageBuilder contiene todos los paquetes
+distribuidos por OpenWrt, por lo que se puede utilizar como un mirror local si
+se sirve ese directorio por HTTP con un servidor web y se edita el _opkg.conf_
+del router.
+
+Tip: También es posible ahorrarse esos pasos y copiar _ib/packages_ a un
+directorio servido por web y hacer links simbólicos al ib y al sdk:
+
+    $ mv ib/packages /srv/http/
+    $ rm -r sdk/bin/ar71xx/packages
+    $ ln -s /srv/http/packages ib/
+    $ ln -s /srv/http/packages sdk/bin/ar71xx/
+
+Con esto sólo es necesario correr `make package_index` desde el ImageBuilder
+("ib").
+
+
 Problemas conocidos
 -------------------
 
