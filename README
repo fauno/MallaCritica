@@ -83,6 +83,41 @@ apagado y se lo enciende. Si todo va bien, al loguearse por telnet, el comando
 `df -h` debería mostrar el tamaño de la tarjeta para *rootfs*.
 
 
+Compilar paquetes
+-----------------
+
+Para compilar los paquetes del directorio _packages_ hay que descargar el
+[SDK][2] y descomprimirlo.  Para compilar un paquete, hay que copiar el
+directorio, por ejemplo _package/sundown/_, dentro del directorio de paquetes
+del SDK (_package/_).  Luego se lo compila:
+
+    $ make package/sundown/compile
+
+Si la compilación falla, se puede ver el error agregando verborragia:
+
+    $ make package/sundown/compile V=99
+
+Los paquetes (.ipk) se guardan dentro del directorio _bin/ar71xx/packages/_
+
+Si el paquete tiene dependencias que no están incluidas en el firmware
+original, la compilación va a fallar porque el SDK no va a encontrar las
+cabeceras.  Para incluirlas hay que copiar el directorio del paquete junto con
+el que se quiere compilar.  Los paquetes originales de OpenWrt se encuentran
+en el [git o svn de paquetes][3].  Lo mejor es usar los paquetes de la versión
+de OpenWrt para la que se está empaquetando.
+
+    $ git clone git://git.openwrt.org/12.09/packages.git owrt_packages
+    $ cp -r package/opentracker sdk/packages/
+    $ cp -r owrt_packages/lib/libowfat sdk/packages
+    $ cd sdk
+    $ make package/opentracker/compile
+
+Con esto se compilan todas las dependencias y el paquete que necesitamos.
+
+Si lo que necesitamos es compilar un módulo del kernel, al parecer no es
+posible hacerlo desde el SDK sino que hay que compilar OpenWrt desde cero (o al
+menos esto era cierto la última vez que probé -- fauno).
+
 Problemas conocidos
 -------------------
 
@@ -93,4 +128,6 @@ Problemas conocidos
 [descargas]: http://downloads.openwrt.org
 [OpenWrt]: https://openwrt.org
 [sys.upgrade]: http://wiki.openwrt.org/doc/howto/sys.upgrade
-[1]: http://downloads.openwrt.org/attitude_adjustment/12.09-beta2/ar71xx/generic/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2
+[1]: http://downloads.openwrt.org/attitude_adjustment/12.09-rc2/ar71xx/generic/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2
+[2]: http://downloads.openwrt.org/attitude_adjustment/12.09-rc2/ar71xx/generic/OpenWrt-SDK-ar71xx-for-linux-i486-gcc-4.6-linaro_uClibc-0.9.33.2.tar.bz2
+[3]: https://dev.openwrt.org/wiki/GetSource
