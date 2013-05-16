@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Crear un ambiente de laburo para OpenWrt
+
+test -z "$1" && { echo "Dame la URL de download de OpenWrt
+Ejemplo: http://downloads.openwrt.org/attitude_adjustment/12.09/ar71xx/generic"; exit 1; }
+
+# Eliminar el nombre de la versión y quedarse con el número y target
+# http://downloads.openwrt.org/attitude_adjustment/12.09/ar71xx/generic
+# se convierte en
+# 12.09/ar71xx/generic
+wget -k -x -nH --cut-dirs=1 "$1/"
+
+path="$(echo "$1" | cut -d"/" -f5-)"
+target="$(echo "$path" | cut -d"/" -f2)"
+
+pushd "${path}"
+  grep -o "https\?://[^\"']\+" "index.html" | \
+    grep -E "ImageBuilder|SDK" | \
+    wget -i - -nc
+
+if mkdir -v ${path}/imagebuilder ; then
+  echo ":: Extrayendo el ImageBuilder"
+  cd ${path}/imagebuilder
+    tar --strip-components=1 -xf "$(readlink -f ../OpenWrt-ImageBuilder*)"
+  cd ..
+
+  mv -v imagebuilder/packages .
+  ln -sv ../packages imagebuilder/
+
+fi
+
+if mkdir -v ${path}/sdk; then
+  echo ":: Extrayendo el SDK"
+  cd ${path}/sdk
+    tar --strip-components=1 -xf "$(readlink -f ../OpenWrt-SDK*)"
+  cd ..
+
+  mkdir -pv sdk/bin/${target}/
+  ln -sv ../../../packages sdk/bin/${target}/
+
+fi
+
+popd # $path
