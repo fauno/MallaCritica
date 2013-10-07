@@ -38,6 +38,6 @@ EOP
 sleep 10s
 
 # Formatear las particiones
-mkfs.ext4 -L raiz ${1}1
-mkswap -L intercambio ${1}2
-mkfs.ext4 -L datos ${1}3
+${sudo} mkfs.ext4 -L raiz ${1}1
+${sudo} mkswap -L intercambio ${1}2
+${sudo} mkfs.ext4 -L datos ${1}3
