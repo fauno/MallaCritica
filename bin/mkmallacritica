@@ -1,0 +1,19 @@
+#!/bin/bash
+set -x
+
+#which ccze &>/dev/null || ccze() { cat; }
+
+FILES="$(readlink -f $0)"
+FILES="${FILES%/*}/../files/"
+PACKAGES="$(cat "$1" | tr "\n" " ")"
+MORE_PACKAGES="${MORE_PACKAGES}"
+
+echo ${PACKAGES} ${MORE_PACKAGES}
+read y
+
+make PROFILE=${PROFILE:-TLWR703} \
+     PACKAGES="${PACKAGES} ${MORE_PACKAGES}" \
+     FILES="${FILES}" \
+     image V=99| tee ${0##*/}.$(date +%s).log #| ccze -A
+
+echo "Log guardado en ${0##*/}.$(date +%s).log"
