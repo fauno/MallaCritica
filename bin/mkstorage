@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Tiene que ser como root
+test -w / || sudo=sudo
+
+test -n "$1" || { echo "Dame una unidad, por ej. /dev/sdc"; exit ; }
+test -b "$1" || { echo "$1 no es un dispositivo de bloque"; exit ; }
+
+echo "Se va a particionar la unidad $1, estás segurx? enter para cancelar"
+read y ; test -n "$y" && exit
+
+# Eliminar la tabla de particiones
+# Crear tres particiones, dos de 512M y una de lo que sobre
+# Escribir los datos y salir
+${sudo} fdisk $1 <<EOP
+o
+n
+p
+
+
++512M
+n
+p
+
+
++512M
+n
+p
+
+
+
+
+p
+w
+EOP
+
+# Dormir un cachito por las dudas
+sleep 10s
+
+# Formatear las particiones
+mkfs.ext4 -L raiz ${1}1
+mkswap -L intercambio ${1}2
+mkfs.ext4 -L datos ${1}3
