@@ -1,0 +1,13 @@
+kmod-usb-storage
+kmod-fs-nilfs2
+block-mount
+swap-utils
+-ppp
+-ppp-mod-pppoe
+-dnsmasq
+dnsmasq-dhcpv6
+generate-ipv6-address
+uhttpd
+mdnsd
+miniupnpd
+nilfs-utils
