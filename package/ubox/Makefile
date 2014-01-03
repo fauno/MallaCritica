@@ -1,13 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ubox
-PKG_VERSION:=2013-08-16.1
+PKG_VERSION:=2014-01-03
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/fauno/ubox.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=f763824c6c6a7021b646014e26ab81f1329620a1
+PKG_SOURCE_VERSION:=19fcd632eab4320932c6f474412faae12f779f5f
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 CMAKE_INSTALL:=1
 
@@ -36,14 +36,19 @@ define Package/block-mount
 endef
 
 define Package/ubox/install
-	$(INSTALL_DIR) $(1)/sbin $(1)/usr/sbin
+	$(INSTALL_DIR) $(1)/sbin $(1)/usr/sbin $(1)/lib/ $(1)/etc/init.d/
 
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/{mount_root,kmodloader} $(1)/sbin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/{mount_root,kmodloader,logd,logread,validate_data} $(1)/sbin/
+	$(INSTALL_BIN) ./files/log.init $(1)/etc/init.d/log
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libvalidate.so $(1)/lib
 	ln -s /sbin/mount_root $(1)/sbin/switch2jffs
 	ln -s /sbin/mount_root $(1)/sbin/jffs2reset
 	ln -s /sbin/mount_root $(1)/sbin/jffs2mark
+	ln -s /sbin/kmodloader $(1)/usr/sbin/rmmod
+	ln -s /sbin/kmodloader $(1)/usr/sbin/insmod
 	ln -s /sbin/kmodloader $(1)/usr/sbin/lsmod
 	ln -s /sbin/kmodloader $(1)/usr/sbin/modinfo
+	ln -s /sbin/kmodloader $(1)/usr/sbin/modprobe
 endef
 
 define Package/block-mount/install
