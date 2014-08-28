@@ -1,17 +1,19 @@
 #!/bin/bash
-set -x
+#set -x
 
 #which ccze &>/dev/null || ccze() { cat; }
 
-FILES="$(readlink -f $0)"
-FILES="${FILES%/*}/../files/"
-PACKAGES="$(cat "$1" | tr "\n" " ")"
+CUR="$(readlink -f $0)"
+PROFILE="$1"
+
+FILES="${CUR%/*}/${PROFILE}/files/"
+PACKAGES="$(cat "${PROFILE}/packages" | tr "\n" " ")"
 MORE_PACKAGES="${MORE_PACKAGES}"
 
 echo ${PACKAGES} ${MORE_PACKAGES}
 read y
 
-make PROFILE=${PROFILE:-TLWR703} \
+make PROFILE=${PROFILE} \
      PACKAGES="${PACKAGES} ${MORE_PACKAGES}" \
      FILES="${FILES}" \
      image V=99| tee ${0##*/}.$(date +%s).log #| ccze -A

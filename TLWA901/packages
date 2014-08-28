@@ -1,0 +1,16 @@
+-ppp
+-ppp-mod-pppoe
+-dnsmasq
+dnsmasq-dhcpv6
+generate-ipv6-address
+miniupnpd
+uhttpd
+mdnsd
+collectd
+collectd-mod-cpu
+collectd-mod-interface
+collectd-mod-load
+collectd-mod-memory
+collectd-mod-network
+collectd-mod-ping
+collectd-mod-entropy
