@@ -1,0 +1,21 @@
+# elaine
+# matt@elaine
+Address = voxb.org
+Port = 655
+LocalDiscovery = yes
+Subnet = 192.168.9.14/32
+Subnet = 2001:1291:200:83ab:405e:e2c1:5278:b6a/128
+
+-----BEGIN RSA PUBLIC KEY-----
+MIICCgKCAgEAtXr4VSUXWYRvhvuXABnKqTvmkSKmsyaQPPMaVqHSceDoeApkgLYb
+RpOeXqmXiTjPMjeCgu1jX5PFP6DRLJmMWzzPwviuzc74oPO9dLJsR4XZPRTUFMko
+slu7mpu3XRmBiPhGaXnTNDBE7n3lBZumxAAnhroG2u9UZNYtBt/M+rcUK0gk1hXb
+bAshl5xg0oGHSPhMPopycbupCfVsPti1nYF9ZLX505ux+IHoEIaRquPJFQNU7WcF
+rKv9yt7dvvdTC5wWFWhmFtVEF7LmgmY+O1/g9IiHYYuzJz8CQWdo4gI5/543l/1+
+1uc6Y/dsQQuPkEbuob9UQuCHmL0u8xFkJblUDoaOX1p8T2zlGzEmCmBX8mcqL2l1
+MykJOkf0DFVJnge+XWf25k+iYfbEg66OxuvnuwJ0eMVRZ9c8XgDY3BXLPUdti9qH
+LyNLPfdHfvwO3rckwmP3arG2Guzk2aDDX25MrIclUrfd/3s6abresIyWkR9BitUT
+qnHM3cCchqczYxd0h7/F0K5JuZOpjMqk5eSyJgFjv6S+KLkqOFrBOemQDaS5rYhf
+F76nasHIqrhsq5RFoADw4KqxiJchUYV9VKSKvojEapGoaRZj95z/USN32i1dwpfR
+EdwGZhq9gsewQf3cO7ajvV638ableB5cipYQvTVVNwS3evOMDtLH6y8CAwEAAQ==
+-----END RSA PUBLIC KEY-----

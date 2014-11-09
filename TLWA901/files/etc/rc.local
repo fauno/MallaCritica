@@ -1,0 +1,21 @@
+if [ "`uci get wireless.@wifi-device[0].disabled`" = "1" ]; then
+  uci set wireless.@wifi-device[0].disabled=0
+  echo \
+"device radio0
+mode ap
+network lan
+ssid MallaCritica
+encryption none" | while read option value
+  do
+    uci set wireless.@wifi-iface[0].${option}="${value}"
+  done
+
+  uci commit wireless
+  wifi
+fi
+
+if ! uci get network.lan.ip6addr; then
+  uci set network.lan.ip6addr=`generate-ipv6-address 2001:1291:200:83ab::`/64
+  uci commit network
+fi
+

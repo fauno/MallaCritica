@@ -6,8 +6,8 @@
 CUR="$(readlink -f $0)"
 PROFILE="$1"
 
-FILES="${CUR%/*}/${PROFILE}/files/"
-PACKAGES="$(cat "${PROFILE}/packages" | tr "\n" " ")"
+FILES="${CUR%/*}/../${PROFILE}/files/"
+PACKAGES="$(cat "${CUR%/*}/../${PROFILE}/packages" | tr "\n" " ")"
 MORE_PACKAGES="${MORE_PACKAGES}"
 
 echo ${PACKAGES} ${MORE_PACKAGES}

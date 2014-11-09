@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Estas IPs las genera lib/lvpn-update-skel
+LVPN_SUBNET6="2001:1291:200:83ab::/64"
+LVPN_SUBNET="192.168.9.0/24"
+HOST_FILE="/etc/tinc/${NETNAME}/hosts/${NAME}"
+
+# Tomar la IP desde el archivo de configuración y descartar el prefijo
+get_ip() {
+  grep "Subnet" "${HOST_FILE}" | \
+    grep -m 1 "${1}" | cut -d"=" -f2 | cut -d"/" -f"1" | tr -d " "
+}
+
+# Obtener las IPs del archivo de conf y agregar los prefijos de subnet
+# originales
+LVPN_SUBNET6="$(get_ip "${LVPN_SUBNET6%%::*}:.*/128")/${LVPN_SUBNET6##*/}"
+LVPN_SUBNET="$(get_ip "${LVPN_SUBNET%%.*}\..*/32")/${LVPN_SUBNET##*/}"
+
+# No aceptar IPv6 desde otro lado
+sysctl -w net.ipv6.conf.${INTERFACE}.accept_ra=0
+
+# Soporte para cosas deprecadas: IPv4 e ifconfig
+if which ip &>/dev/null; then
+  test ! -z "${LVPN_SUBNET6}" && ip address add ${LVPN_SUBNET6} dev ${INTERFACE}
+  test ! -z "${LVPN_SUBNET}"  && ip address add ${LVPN_SUBNET}  dev ${INTERFACE}
+
+  ip link set ${INTERFACE} up
+else
+  test ! -z "${LVPN_SUBNET6}" && ifconfig ${INTERFACE} ${LVPN_SUBNET6}
+  test ! -z "${LVPN_SUBNET}"  && ifconfig ${INTERFACE} ${LVPN_SUBNET}
+
+  ifconfig ${INTERFACE} up
+fi
+
+source /etc/tinc/${NETNAME}/run-script
