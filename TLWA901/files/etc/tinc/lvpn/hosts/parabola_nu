@@ -1,0 +1,21 @@
+# parabola_nu
+# root <root@parabola.nu>
+Address = parabola.nu
+Port = 655
+LocalDiscovery = yes
+Subnet = 192.168.9.27/32
+Subnet = 2001:1291:200:83ab:9451:92d7:dbbf:f882/128
+
+-----BEGIN RSA PUBLIC KEY-----
+MIICCgKCAgEA6VXLllT7RL9jFUz770dqomKQHnEbdoKzuYBKX+n7QateYK3z9yWm
+asbgsjjCbbY0+g2f8KQXrp4HzO/qxCrag8Saf9abzIHcsK9+tKv3X/cRQ9RHTwy/
+1dpUrKTSgUUSbXJtztvub9gn2lrPfda9kBVKGBemS3IXzf+0fmYSCXz8uS5UbUVz
+OtDYDxRoLRDJDYjRBS1N6NAEZy+9x5fwcNwecla41TlJ5n4gVeF3I+bwxQNqd+e3
+oCNTq6TRe+uNC1Bz6T59dplR/AP+Q3hp1vGQUkYc26NUillBG9k5GXdGW2jCz7GV
+UE1rwjj+gm93D7YdKbsY3AyI2q1sk5puPykBn/AHJ4XjbPxVz7LLkJnGi8weyeAR
+Phq1Y0ms3w0sfOCArTlYSm7JTPPczR2P+spOZgKuWJAbWwNBwWYibakuMw+CThCj
+ZinDRheitpJCuIUXuHJb8VUOTyPvJYlla6gCzddLyRKCYPUORMnNG4SNnq097aGk
+w/KF6QWk6kEuzwjKZfLLwPzraFK2OOMT8zjklFLpp0jxAAqDmRI+qcXAQ/ruAxSd
+8cJUGDZpLN9Rhi1GtPgI9JoMRffpgfAc3g9ab6A2JtrENXxQulC3GJOM6zJ5r8pZ
+vEP5KTapp5MClv1MPGgq4drCl/pcqhuXBUQUZjzjItN2m3KGy17audMCAwEAAQ==
+-----END RSA PUBLIC KEY-----
