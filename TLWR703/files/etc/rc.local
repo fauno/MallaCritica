@@ -18,7 +18,7 @@ do
 done
 
 # Crear la red adhoc
-if [ "`uci get wireless.wifi-iface[0].mode`" != "adhoc" ]; then
+if [ "`uci get wireless.@wifi-device[0].disabled`" = "1" ]; then
   echo \
 "device radio0
 mode adhoc
