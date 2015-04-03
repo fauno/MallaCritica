@@ -1,0 +1,21 @@
+Address = naven.local
+Address = 10.4.23.246
+Address = kiwwwi.com.ar
+Address = 7ihuiypnohfb5yp3.onion
+
+Subnet = 192.168.9.3/32
+Subnet = 2001:1291:200:83ab:249a:2ef4:9cad:1d9e/128
+
+-----BEGIN RSA PUBLIC KEY-----
+MIICCgKCAgEAySojYrK2MP7sf2GhNvZQKnCij+mRUDbHrmBgh8RZkZT0fCttJ4rZ
+B95PcG1dQK/o7wKxrqo0kJolBeKZ/JgMVNYrA3w+e1xSITgFBOzxnR0p4OkFQYzj
+aq8yhWu2s919PoctDjCFYP/qyGOMRD+NSsuSVGS+L68QDuu9FZYe10uWkexlGTek
+P6XIYUeQPo0SOGfxd1w1LwnnZ06R1hTM6yvzlnZUa8WzBH7KlQc545xi1ZIXI4YB
+VXohsNjGgBZuII25Gn+rH5PPEuRQiCuwvjc18kmzY1s2+ooUddndXaUuSKvh3yxf
+Aze9ZYStkMKUFbKBgny7SYseNJJitzeMAviwzpZbG68uzcLyrHXCC0ZIY3fh2Pyv
+za5rLGX+tsO+Rxx9re2XANHCylaPiQEprnYmIg+dLxIqJZ6XAwuGw1jJ5LqaZ8Ja
+7u0bjDzDm8QmFK0dAgP4gjA47c+FbVY72xwR9eueHgjXf91vTQgtv0aBLFDhilaP
+TLtrErUapwmI/THsgKGxJIir0IwN2Cb9FNhUGxacTyKv9iMAPx+a8dcoYj2dpmkF
+XRbbAtIhiQXAH32Yq+MD6cXSNBF83E39Hjh5xvMHj/nfPedul6zYO9u23mNZ/xyb
+89MlJ3PjqI3W2u+m6rhu2uiUPDs0sj2Ax8u680zD1jURe48Fibg3d9sCAwEAAQ==
+-----END RSA PUBLIC KEY-----

@@ -1,0 +1,10 @@
+#!/bin/sh
+# Este archivo da de baja la interfaz de la VPN
+
+if which ip &>/dev/null ; then
+  ip link set ${INTERFACE} down
+else
+  ifconfig ${INTERFACE} down
+fi
+
+source /etc/tinc/${NETNAME}/run-script

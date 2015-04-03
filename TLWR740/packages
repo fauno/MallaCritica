@@ -1,0 +1,8 @@
+-ppp
+-ppp-mod-pppoe
+-dnsmasq
+dnsmasq-dhcpv6
+generate-ipv6-address
+miniupnpd
+mdnsd
+luci

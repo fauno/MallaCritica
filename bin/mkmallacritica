@@ -11,6 +11,7 @@ PACKAGES="$(cat "${CUR%/*}/../${PROFILE}/packages" | tr "\n" " ")"
 MORE_PACKAGES="${MORE_PACKAGES}"
 
 echo ${PACKAGES} ${MORE_PACKAGES}
+echo "presione cualquier tecla para continuar :P"
 read y
 
 make PROFILE=${PROFILE} \
