@@ -1,0 +1,24 @@
+#!/bin/sh
+# Ejecuta todos los scripts referidos a este evento que se encuentren
+# dentro del directorio scripts/
+
+# tinc.conf(5)
+# Exporta todas las variables de entorno para que las puedan tomar los
+# subscripts
+export NETNAME NAME DEVICE INTERFACE NODE REMOTEADDRESS REMOTEPORT \
+       SUBNET WEIGHT
+
+# Extrae {host,subnet,etc}
+event=${0##*/}; event=${event%-*}
+# Extrae {up,down}
+state=${0##*/}; state=${state#*-}
+
+# evitar que el script falle cuando no hay ningun script
+type shopt &>/dev/null && shopt -s nullglob
+
+for _script in /etc/tinc/${NETNAME}/scripts/${event}-*; do
+  # si no hay nullglob va a llegar un archivo con * literal (ej. ash)
+  test ! -e "${_script}" && continue
+
+  exec "${_script}" ${state}
+done
