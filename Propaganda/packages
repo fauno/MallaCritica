@@ -1,0 +1,12 @@
+-ppp
+-ppp-mod-pppoe
+fdisk
+block-mount
+kmod-fs-f2fs
+kmod-usb-storage
+mkf2fs
+f2fsck
+kmod-usb-ohci
+kmod-usb-uhci
+uhttpd
+uhttpd-mod-lua

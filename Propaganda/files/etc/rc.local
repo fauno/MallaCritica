@@ -1,0 +1,27 @@
+# Configurar una sola vez
+if ! test -f /etc/propaganda; then
+  # Habilitar la WiFi
+  uci set wireless.radio0.disabled=0
+  # Usar un SSID abierto pero con portal cautivo reconocido, ej.
+  # 'TeleCentro Wifi Zone'
+  uci set wireless.default_radio0.ssid='BA WiFi'
+  # Guardar los cambios
+  uci commit wireless
+
+  # Dejar la red lista
+  /etc/init.d/network restart
+
+  # Configurar el servidor web
+  uci set uhttpd.main.error_page=/generate_204
+  uci set uhttpd.main.lua_prefix=/generate_204
+  uci set uhttpd.main.lua_handler=/www/204.lua
+  uci commit uhttpd
+
+  /etc/init.d/uhttpd enable
+  /etc/init.d/uhttpd restart
+
+  # No volver a configurar
+  touch /etc/propaganda
+fi
+
+exit 0
