@@ -4,19 +4,23 @@
 #which ccze &>/dev/null || ccze() { cat; }
 
 CUR="$(readlink -f $0)"
-PROFILE="$1"
+DIR="$1"
 
-FILES="${CUR%/*}/../${PROFILE}/files/"
-PACKAGES="$(cat "${CUR%/*}/../${PROFILE}/packages" | tr "\n" " ")"
+PROFILE="${2:-$(cat "${DIR}/profile")}"
+
+FILES="${DIR}/files/"
+PACKAGES="$(cat "${DIR}/packages" | tr "\n" " ")"
 MORE_PACKAGES="${MORE_PACKAGES}"
 
-echo ${PACKAGES} ${MORE_PACKAGES}
+echo "Perfil: ${PROFILE}"
+echo "Paquetes: ${PACKAGES} ${MORE_PACKAGES}"
 echo "presione cualquier tecla para continuar :P"
 read y
 
-make PROFILE=${PROFILE} \
+umask 022
+make PROFILE="${PROFILE}" \
      PACKAGES="${PACKAGES} ${MORE_PACKAGES}" \
      FILES="${FILES}" \
-     image V=99| tee ${0##*/}.$(date +%s).log #| ccze -A
+     image V=99 2>&1 | tee ${0##*/}.$(date +%s).log #| ccze -A
 
 echo "Log guardado en ${0##*/}.$(date +%s).log"
