@@ -1,0 +1,36 @@
+# Solo autoconfigurar si es el primer booteo
+if ! test -f /etc/mallacritica ; then
+  # Detectar las wifi
+  wifi config
+
+  # Autoconfigurar la placa wifi externa si se la encontró
+  if uci get wireless.@wifi-device[1] ; then
+    uci set wireless.@wifi-device[1].disabled=0
+    uci set wireless.@wifi-iface[1].ssid=MallaCritica
+  fi
+
+  # Autodeshabilitar la placa wifi interna
+  uci set wireless.@wifi-device[0].disabled=0
+  uci set wireless.@wifi-device[0].channel=6
+  uci set wireless.@wifi-iface[0].ssid=MallaCritica
+
+  uci commit wireless
+
+  # Autoconfigurar la placa de red
+  uci delete network.lan.ifname
+  uci set network.lan.ipaddr=192.168.10.1
+  uci set network.wan=interface
+  # Los comandos subsiguientes no funcionan si no guardamos antes
+  # la interfaz nueva
+  uci commit network
+
+  uci set network.wan.ifname=eth0
+  uci set network.wan.proto=dhcp
+  uci commit network
+
+  /etc/init.d/network restart
+
+  touch /etc/mallacritica
+fi
+
+exit 0
