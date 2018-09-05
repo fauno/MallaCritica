@@ -1,0 +1,26 @@
+#!/bin/bash
+
+repositories=$(readlink -f "${1:-repositories.conf}")
+
+links() {
+  grep -o "https\?://[^'\"]\+"
+}
+
+mkdir -p packages
+pushd packages
+
+cat "${repositories}" \
+| grep "^src/gz" \
+| links \
+| sed "s,[^/]$,&/," \
+| wget -i - -nc --convert-links --force-directories --no-host-directories
+
+find -name index.html \
+| xargs cat \
+| links \
+| xargs -n 100 -P 5 wget --force-directories --no-host-directories -nv
+
+popd
+
+cp "${repositories}"{,~}
+sed -re "s,https?://[^/]+/,file:packages/," -i "${repositories}"
