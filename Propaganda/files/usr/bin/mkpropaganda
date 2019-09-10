@@ -1,0 +1,17 @@
+#!/bin/sh
+# https://lede-project.org/docs/user-guide/extroot_configuration
+
+# Formatear la particion
+mkfs.f2fs /dev/sda1
+
+# Montar la particion nueva
+mount /dev/sda1 /mnt
+
+# Copiar todo el overlay a la particion nueva
+tar -C /overlay -cvf - . \
+| tar -C /mnt -xf -
+umount /mnt
+
+# Instalar squid
+opkg update
+opkg install squid
