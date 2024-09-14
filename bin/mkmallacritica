@@ -12,7 +12,7 @@ MORE_PACKAGES="${MORE_PACKAGES}"
 
 echo "Perfil: ${PROFILE}"
 echo "Paquetes: ${PACKAGES} ${MORE_PACKAGES}"
-echo "presione cualquier tecla para continuar :P"
+echo "presione cualquier tecla para continuar o ctrl+c para cancelar :P"
 read y
 
 umask 022
