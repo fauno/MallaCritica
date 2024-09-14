@@ -1,10 +1,8 @@
 #!/bin/bash
-#set -x
-
-#which ccze &>/dev/null || ccze() { cat; }
 
 CUR="$(readlink -f $0)"
 DIR="$1"
+LOG="${0##*/}.$(date +%s).log"
 
 PROFILE="${2:-$(cat "${DIR}/profile")}"
 
@@ -21,6 +19,6 @@ umask 022
 make PROFILE="${PROFILE}" \
      PACKAGES="${PACKAGES} ${MORE_PACKAGES}" \
      FILES="${FILES}" \
-     image V=99 2>&1 | tee ${0##*/}.$(date +%s).log #| ccze -A
+     image V=99 2>&1 | tee "${LOG}"
 
-echo "Log guardado en ${0##*/}.$(date +%s).log"
+echo "Log guardado en ${LOG}"
