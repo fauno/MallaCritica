@@ -1,0 +1,18 @@
+configured=/etc/configured
+
+# Configurar una sola vez
+test -f "${configured}" && exit 0
+# Habilitar la WiFi
+uci set wireless.radio0.disabled=0
+# Usar un SSID abierto
+uci set wireless.default_radio0.ssid='Sutty'
+# Guardar los cambios
+uci commit wireless
+
+# Dejar la red lista
+/etc/init.d/network restart
+
+# No volver a configurar
+touch "${configured}"
+
+exit 0
